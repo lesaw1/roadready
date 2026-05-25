@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Read(//Users/les/.volta/**)",
+      "Read(//Users/les/**)",
+      "Bash(brew list *)",
+      "Bash(command -v node)",
+      "Bash(chmod +x /Users/les/roadready/setup.sh)",
+      "Bash(brew install *)",
+      "Bash(/opt/homebrew/bin/brew install *)",
+      "Bash(/opt/homebrew/bin/node --version)",
+      "Bash(/opt/homebrew/bin/npm --version)",
+      "Bash(curl *)"
+    ]
+  }
+}

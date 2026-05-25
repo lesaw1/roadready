@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ServiceRequest {
+  id              Int         @id @default(autoincrement())
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  customerName    String
+  customerPhone   String
+  customerEmail   String?
+  vehicleMake     String
+  vehicleModel    String
+  vehicleYear     String
+  vehicleColor    String?
+  serviceType     String
+  description     String?
+  locationLat     Float?
+  locationLng     Float?
+  locationAddress String?
+  status          String      @default("pending")
+  stripePaymentId String?
+  amountCents     Int?
+  technician      Technician? @relation(fields: [technicianId], references: [id])
+  technicianId    Int?
+  jobs            Job[]
+}
+
+model Technician {
+  id        Int              @id @default(autoincrement())
+  createdAt DateTime         @default(now())
+  name      String
+  phone     String           @unique
+  email     String?          @unique
+  specialty String?
+  isActive  Boolean          @default(true)
+  requests  ServiceRequest[]
+  jobs      Job[]
+}
+
+model Job {
+  id               Int            @id @default(autoincrement())
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  status           String         @default("assigned")
+  notes            String?
+  serviceRequest   ServiceRequest @relation(fields: [serviceRequestId], references: [id])
+  serviceRequestId Int
+  technician       Technician     @relation(fields: [technicianId], references: [id])
+  technicianId     Int
+}
